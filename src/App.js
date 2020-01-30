@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import toysdata from './data'
 import ToyContainer from './component/toycontainer'
+import Form from './component/Form'
 
 class App extends Component {
   // console.log(toys)
@@ -26,11 +27,9 @@ class App extends Component {
       let updatedLikesArray = this.state.toys.map(toy => {
 
           if (toy.id === id) {
-            console.log('id is found', id)
             return {...toy, likes: toy.likes +1 } 
           }
           else {
-            console.log('not here')
             return toy // toy will be returned into updatedLikesArray if id doesn't match. 
           }
       })
@@ -40,14 +39,26 @@ class App extends Component {
       })
   }
 
+  submitNewToy = (messageFromChild) => {
+    let newId = this.state.toys.length + 1
+    let newToy = {...messageFromChild, id: newId, likes: 0}
+    let newToysArray = [newToy, ...this.state.toys] //get toys array from state (this.state.toys) spread it and push the new toy object in
+    this.setState({
+      toys: newToysArray
+    })
+    
+  }
+
 
   render(){
   
   return (
     <div className="App">
+      <Form submitNewToy = {this.submitNewToy}/>
       <ToyContainer 
       deleteToy = {this.deleteToy}
-      increaseLikes = {this.increaseLikes} toys={this.state.toys}/>
+      increaseLikes = {this.increaseLikes} 
+      toys={this.state.toys}/>
     </div>
   );
 }

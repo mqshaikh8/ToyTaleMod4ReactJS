@@ -16,7 +16,7 @@ class toycard extends Component {
 
     render() {
         
-    let {name, image, likes} = this.props.toy
+    let {name, image, likes} = this.props.toy //toy object is being destructured
     
         return (
             <div>
